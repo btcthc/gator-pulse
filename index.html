@@ -76,6 +76,11 @@ tr.det td{background:var(--panel2);text-align:left;white-space:normal}
 .why{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:12px;margin-top:22px}
 .why div{border-left:2px solid var(--cyan);padding:2px 0 2px 12px}.why b{display:block}.why span{color:var(--muted);font-size:13px}
 .empty{color:var(--muted);padding:16px}
+.chk{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;padding:10px 12px;margin:0 0 14px;background:var(--panel);border:1px solid var(--line);border-radius:12px}
+.chk b{font:700 12px var(--mono);letter-spacing:.06em}.chk input{flex:1 1 220px;min-width:0;background:var(--bg);border:1px solid var(--line);border-radius:9px;color:var(--fg);font:500 13px var(--mono);padding:8px 10px}
+#cr{flex:1 1 100%;font-size:13px}#cr:empty{display:none}
+.game{display:flex;gap:8px;margin:10px 0}.game button{flex:1;font:700 14px var(--mono);padding:12px;border-radius:10px;border:1px solid var(--line);background:var(--panel2);color:var(--fg);cursor:pointer}
+.game button.up:hover{border-color:var(--green);color:var(--green)}.game button.dn:hover{border-color:var(--red);color:var(--red)}
 .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));gap:12px;margin-bottom:12px}
 .tile{padding:12px 14px}.tile .big{font-size:24px}.tile small{display:block;color:var(--muted);font:500 12px var(--sans);margin-top:6px}
 .chart{width:100%;height:70px;display:block}
@@ -100,6 +105,7 @@ footer{margin-top:26px;padding-top:14px;border-top:1px solid var(--line);color:v
   <a href="#network">🐊 Network</a><a href="#markets">Markets</a><a href="#radar" class="hot">🚨 Scam radar</a><a href="#bitcoin">Bitcoin &amp; Trac</a>
   <span class="more"><a href="#movers">movers</a> · <a href="#sectors">sectors</a> · <a href="#chains">chains</a> · <a href="#exchanges">exchanges</a> · <a href="#funding">funding</a> · <a href="#about">how it works</a></span>
 </nav>
+<div class="chk"><b>🎯 Pre-trade check</b><input id="cq" placeholder="Ticker or contract — BTC, GRAM, TNK…" autocomplete="off"><div id="cr"></div></div>
 <section id="view"></section>
 <footer>
   <span>Data: Gator network (P2P swarm of AI agents) · Not financial advice</span>
@@ -164,7 +170,8 @@ const VIEWS = {
     return `<h1>The Gator network, live</h1><p class="sub">Peer-to-peer nodes and AI agents on Trac, sharing verified prices. Seen from one home node, every 15 min — with the history nobody else keeps.</p>
       <div class="tiles">${tile(N.nodes, 'nodes in the directory')}${tile(N.active24, 'nodes active in 24h', 'g')}${tile(N.joined24, 'new nodes in 24h', 'y')}
       ${tile(N.online, 'agent harnesses online now')}${tile(N.agents24, 'AI agents seen in 24h')}${tile(n(N.assets), 'assets covered')}</div>
-      <div class="grid">${chart('nodes', 'Nodes in the network')}${chart('online', 'Agents online')}${chart('assets', 'Assets covered')}</div>
+      ${H.length < 3 ? `<div class="card box m" style="margin-bottom:12px">📈 Growth charts start filling in — history recorded since ${H.length ? new Date(H[0].t * 1000).toUTCString().slice(5, 22) + ' UTC' : 'today'}, a point every 15 minutes.</div>`
+        : `<div class="grid">${chart('nodes', 'Nodes in the network')}${chart('online', 'Agents online')}${chart('assets', 'Assets covered')}</div>`}
       <div class="grid" style="margin-top:12px">
       <div class="card box"><h3>Data sources this node polls</h3>${Object.entries(src).map(([k, v]) => `<div class="kv"><span>${esc(k)}</span><b class="${k === 'ok' ? 'g' : k === 'failing' ? 'r' : ''}">${v}</b></div>`).join('') || '<div class="m">—</div>'}
         <div class="kv"><span>Node version</span><b>v${esc(N.version || '?')}</b></div><div class="kv"><span>Local database</span><b>${N.dbMB ? (N.dbMB / 1024).toFixed(1) + ' / ' + ((N.dbCapMB || 0) / 1024).toFixed(0) + ' GB' : '—'}</b></div></div>
@@ -233,7 +240,7 @@ Environment=NODE_OPTIONS=--max-old-space-size=2048</pre></li>
   bitcoin() {
     const f = D.fg, m = D.market;
     return `<h1>Bitcoin &amp; the Trac ecosystem</h1><p class="sub">BTC, TNK and TAP with 30-day charts, the market mood, and the latest Bitcoin · Ordinals · DMT · Trac news.</p>
-      <div class="grid">${D.eco.map(c => `<div class="card box"><h3>${esc(c.sym)} ${dot(c.trust)}</h3><div class="big">${px(c.price)}</div><div>${pct(c.c24)} <span class="m">24h</span>${c.trust !== 'green' ? ' · <span class="y">unconfirmed price</span>' : ''}</div><div style="margin-top:8px">${spark(c.spark, 280, 60).replace('class="sp"', 'class="sp" style="width:100%;height:60px"')}</div></div>`).join('')}
+      <div class="grid">${gameCard()}${D.eco.map(c => `<div class="card box"><h3>${esc(c.sym)} ${dot(c.trust)}</h3><div class="big">${px(c.price)}</div><div>${pct(c.c24)} <span class="m">24h</span>${c.trust !== 'green' ? ' · <span class="y">unconfirmed price</span>' : ''}</div><div style="margin-top:8px">${spark(c.spark, 280, 60).replace('class="sp"', 'class="sp" style="width:100%;height:60px"')}</div></div>`).join('')}
       <div class="card box"><h3>Fear &amp; Greed</h3>${f.value == null ? '<div class="m">No data</div>' : `<div class="big">${f.value} <span style="font-size:14px" class="${f.value < 45 ? 'r' : f.value > 55 ? 'g' : 'y'}">${esc(f.label)}</span></div><div class="gauge"><i style="left:calc(${f.value}% - 2px)"></i></div>
         <div class="kv"><span>Yesterday</span><b>${f.yesterday ?? '—'}</b></div><div class="kv"><span>Last week</span><b>${f.lastWeek ?? '—'}</b></div><div class="kv"><span>Last month</span><b>${f.lastMonth ?? '—'}</b></div>`}</div>
       <div class="card box"><h3>Market</h3><div class="kv"><span>Total cap</span><b>${big(m.cap)} ${pct(m.capCh24)}</b></div><div class="kv"><span>Volume 24h</span><b>${big(m.vol24)}</b></div><div class="kv"><span>Stablecoins</span><b>${big(m.stables)}</b></div><div class="kv"><span>BTC dominance</span><b>${m.btcDom?.toFixed(1) ?? '—'}%</b></div><div class="kv"><span>ETH dominance</span><b>${m.ethDom?.toFixed(1) ?? '—'}%</b></div></div>
@@ -263,6 +270,55 @@ document.addEventListener('click', e => {
   if (th && th.dataset.k) { const k = th.dataset.k; sortDir = sortKey === k ? -sortDir : (k === 'sym' || k === 'rank' || k === 'trust' ? 1 : -1); sortKey = k; show(); return; }
   const tr = e.target.closest('tr.row');
   if (tr && !e.target.closest('a')) { open = open === tr.dataset.id ? null : tr.dataset.id; show(); }
+});
+
+// ── Pre-trade check (идея Benny №1): по данным страницы, полная проверка — в боте ──
+function precheck(v) {
+  v = (v || '').trim().replace(/^\$/, ''); if (!v || !D) return '';
+  const V = v.toUpperCase(), isAddr = v.length > 30;
+  const t = D.tokens.find(x => isAddr ? (x.addr || '').toLowerCase() === v.toLowerCase() : (x.sym || '').toUpperCase() === V);
+  const gap = !isAddr && (D.gaps || []).find(x => x.sym === V);
+  const full = `<a class="btn main" href="${bot(isAddr ? v : V)}" target="_blank" rel="noopener">Full scam check in Telegram →</a>`;
+  if (t) {
+    const w = t.trust === 'green' ? '<span class="g">price confirmed by the swarm</span>' : t.trust === 'yellow' ? '<span class="y">few sources — careful</span>' : '<span class="r">untrusted price</span>';
+    return `${dot(t.trust)} <b>${esc(t.sym)}</b> ${esc(t.name)} · ${px(t.price)} ${pct(t.c24)} · ${w} · ${t.agents ?? '—'} agents, ${t.src ?? '—'} sources · vol ${big(t.vol)}${t.addr ? ' · <code>' + esc(t.addr.slice(0, 8)) + '…</code>' : ''}<div style="margin-top:8px">${full}</div>`;
+  }
+  if (gap) return `⚠️ <b>${esc(gap.name)}</b> (#${gap.rank}) ${gap.added ? '— just added to the network by this node.' : "isn't tracked by the Gator network yet. A token called " + esc(V) + ' on a DEX is <b>not</b> the real coin — check its contract.'}<div style="margin-top:8px">${full}</div>`;
+  return `Not in the top ${D.tokens.length} here. ${isAddr ? 'Run the contract' : 'Paste its contract, not the ticker, or run it'} through the full check:<div style="margin-top:8px">${full}</div>`;
+}
+document.addEventListener('input', e => { if (e.target.id === 'cq') $('cr').innerHTML = precheck(e.target.value); });
+
+// ── Игра «BTC через час» (идея Benny: прогнозы). Ставка хранится в браузере, итог — по подтверждённой цене из истории ──
+const GK = 'gp-call';
+const gget = () => { try { return JSON.parse(localStorage.getItem(GK)) || {}; } catch (e) { return {}; } };
+const gset = v => { try { localStorage.setItem(GK, JSON.stringify(v)); } catch (e) {} };
+function gameResolve() {
+  const g = gget(); if (!g.call || !HIST) return g;
+  const end = HIST.find(h => h.t >= g.call.t + 3600 && h.btc);
+  if (end) {
+    const win = (end.btc > g.call.p) === (g.call.side === 'up');
+    g.last = {side: g.call.side, p: g.call.p, end: end.btc, win};
+    g.played = (g.played || 0) + 1; g.wins = (g.wins || 0) + (win ? 1 : 0);
+    g.streak = win ? (g.streak || 0) + 1 : 0; g.best = Math.max(g.best || 0, g.streak);
+    delete g.call; gset(g);
+  }
+  return g;
+}
+function gameCard() {
+  const g = gameResolve(), b = D.net && D.net.btc;
+  let body;
+  if (g.call) {
+    const left = Math.max(0, Math.ceil((g.call.t + 3600 - Date.now() / 1000) / 60));
+    body = `<div>You called <b class="${g.call.side === 'up' ? 'g' : 'r'}">${g.call.side === 'up' ? '▲ UP' : '▼ DOWN'}</b> from ${px(g.call.p)}.</div><div class="m">Result ${left ? 'in ~' + left + ' min' : 'at the next update'} — checked against the swarm-confirmed BTC price.</div>`;
+  } else if (!b) body = '<div class="m">BTC price is not confirmed right now — no calls until it is.</div>';
+  else body = `<div>BTC now <b>${px(b)}</b> (confirmed). Higher or lower in 1 hour?</div><div class="game"><button class="up" data-call="up">▲ Higher</button><button class="dn" data-call="down">▼ Lower</button></div>`;
+  const last = g.last ? `<div class="kv"><span>Last call</span><b class="${g.last.win ? 'g' : 'r'}">${g.last.win ? '✓ won' : '✗ lost'} · ${px(g.last.p)} → ${px(g.last.end)}</b></div>` : '';
+  return `<div class="card box"><h3>🎲 Call it: BTC in 1 hour</h3>${body}${last}<div class="kv"><span>Your score</span><b>${g.wins || 0} / ${g.played || 0}</b></div><div class="kv"><span>Streak · best</span><b>${g.streak || 0} · ${g.best || 0}</b></div><div class="m" style="font-size:12px">Just for fun — kept in your browser. Not financial advice.</div></div>`;
+}
+document.addEventListener('click', e => {
+  const c = e.target.closest('[data-call]'); if (!c || !D || !D.net || !D.net.btc) return;
+  const g = gget(); if (g.call) return;
+  g.call = {side: c.dataset.call, p: D.net.btc, t: Math.floor(Date.now() / 1000)}; gset(g); show();
 });
 window.addEventListener('hashchange', show);
 function header() {
