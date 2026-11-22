@@ -3,203 +3,254 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Gator Pulse · x88btc Alpha</title>
-<meta name="description" content="Live crypto market pulse from the Gator agent network: trust-checked prices, Fear & Greed, movers, funding and Bitcoin news. Free, by x88btc Alpha.">
-<meta property="og:title" content="Gator Pulse · x88btc Alpha">
-<meta property="og:description" content="Live market pulse from the Gator agent network. Every price cross-checked by AI agents, 🟢🟡🔴 trust lights.">
-<meta property="og:image" content="og.png">
+<title>Gator Pulse · crypto prices you can trust</title>
+<meta name="description" content="Free crypto terminal: 300 tokens with trust lights, scam radar for new tokens, sectors, chains, exchanges, funding and Fear & Greed. Every price cross-checked by a swarm of AI agents on the Gator network.">
+<meta property="og:title" content="Gator Pulse · crypto prices you can trust">
+<meta property="og:description" content="Prices cross-checked by AI agents 🟢🟡🔴 · scam radar for new tokens · sectors, chains, exchanges, funding. Free.">
+<meta property="og:image" content="https://btcthc.github.io/gator-pulse/og.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@x88btc">
 <link rel="icon" href="icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=JetBrains+Mono:wght@500;700&display=swap">
 <style>
-:root{--bg:#070b10;--panel:#0d141c;--line:#1a2633;--fg:#e8eef4;--muted:#7d8b99;--cyan:#22d3ee;--btc:#f7931a;
+:root{--bg:#070b10;--panel:#0d141c;--panel2:#111a24;--line:#1a2633;--fg:#e8eef4;--muted:#7d8b99;--cyan:#22d3ee;--btc:#f7931a;
   --green:#34e39a;--yellow:#f5c84b;--red:#ff4d7d;--mono:'JetBrains Mono',ui-monospace,Consolas,monospace;
   --sans:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color-scheme:dark}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 var(--sans);
-  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
-  background-size:48px 48px;background-attachment:fixed}
-body::after{content:"";position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% -10%,rgba(34,211,238,.10),transparent 60%),linear-gradient(transparent,var(--bg) 85%)}
-main{position:relative;z-index:1;max-width:1120px;margin:0 auto;padding-block:28px 60px;
-  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.5 var(--sans)}
+main{max-width:1280px;margin:0 auto;padding-block:18px 60px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 a{color:var(--cyan);text-decoration:none}a:hover{text-decoration:underline}
-header{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px;padding-bottom:18px;border-bottom:1px solid var(--line)}
-.brand{display:flex;align-items:center;gap:14px}
-.brand img{width:48px;height:48px;border-radius:12px}
-.brand b{display:block;font:700 22px/1.1 var(--mono);letter-spacing:.12em}
-.brand span{font:500 12px var(--mono);color:var(--muted);letter-spacing:.18em;text-transform:uppercase}
-.live{font:500 12px var(--mono);color:var(--muted);letter-spacing:.1em;display:flex;align-items:center;gap:8px}
-.live i{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green);animation:p 2s infinite}
+header{display:flex;flex-wrap:wrap;align-items:center;gap:12px 18px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:12px;margin-right:auto}
+.brand img{width:40px;height:40px;border-radius:10px}
+.brand b{display:block;font:700 18px/1.1 var(--mono);letter-spacing:.1em}
+.brand span{font:500 11px var(--mono);color:var(--muted);letter-spacing:.14em;text-transform:uppercase}
+.live{font:500 11px var(--mono);color:var(--muted);display:flex;align-items:center;gap:7px}
+.live i{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:p 2s infinite}
 @keyframes p{50%{opacity:.35}}
-.cta{display:flex;flex-wrap:wrap;gap:10px}
-.btn{font:700 13px var(--mono);padding:10px 14px;border-radius:10px;border:1px solid var(--line);background:var(--panel);color:var(--fg)}
+.btn{display:inline-block;font:700 12px var(--mono);padding:9px 12px;border-radius:9px;border:1px solid var(--line);background:var(--panel);color:var(--fg);cursor:pointer;white-space:nowrap}
 .btn.main{background:var(--cyan);color:#041016;border-color:var(--cyan)}
 .btn:hover{text-decoration:none;border-color:var(--cyan)}
-.hero{padding:34px 0 22px}
-.hero h1{font:800 clamp(28px,5vw,46px)/1.08 var(--sans);margin:0 0 12px;text-wrap:balance;letter-spacing:-.02em}
-.hero h1 em{font-style:normal;color:var(--cyan)}
-.hero p{max-width:640px;color:var(--muted);margin:0;font-size:16px}
-.net{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:22px 0 8px}
-.stat{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
-.stat small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font:500 11px var(--mono);letter-spacing:.14em;color:var(--muted);text-transform:uppercase}
-.stat b{font:700 clamp(18px,4.5vw,26px) var(--mono);overflow-wrap:anywhere}
-.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:14px;margin-top:14px}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px;min-width:0}
-.card h2{font:700 12px var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin:0 0 14px;display:flex;justify-content:space-between;gap:8px}
-.card h2 a{letter-spacing:.04em;text-transform:none}
-.c4{grid-column:span 4}.c5{grid-column:span 5}.c6{grid-column:span 6}.c7{grid-column:span 7}.c8{grid-column:span 8}.c12{grid-column:span 12}
-.coins{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
-.coin{border:1px solid var(--line);border-radius:12px;padding:12px;min-width:0}
-.coin .t{display:flex;justify-content:space-between;align-items:center;font:700 14px var(--mono)}
-.coin .p{font:700 20px var(--mono);margin:6px 0 2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.coin svg{width:100%;height:38px;display:block;margin-top:6px}
-.dot{width:10px;height:10px;border-radius:50%;display:inline-block}
-.green{color:var(--green)}.red{color:var(--red)}.yellow{color:var(--yellow)}
-.bg-green{background:var(--green);box-shadow:0 0 8px var(--green)}.bg-yellow{background:var(--yellow)}.bg-red{background:var(--red)}
-.unv{font:500 11px var(--mono);color:var(--yellow)}
-table{width:100%;border-collapse:collapse;font:500 13px var(--mono)}
-td{padding:7px 4px;border-bottom:1px solid var(--line);white-space:nowrap}
-td:last-child,th:last-child{text-align:right}
-td.n{color:var(--muted);font-size:11px;max-width:120px;overflow:hidden;text-overflow:ellipsis}
+.ticker{display:flex;gap:18px;overflow-x:auto;padding:10px 0;border-bottom:1px solid var(--line);font:500 12px var(--mono);color:var(--muted);scrollbar-width:none}
+.ticker span{white-space:nowrap}.ticker b{color:var(--fg)}
+nav{display:flex;gap:6px;overflow-x:auto;padding:12px 0;scrollbar-width:none}
+nav a{font:700 12px var(--mono);letter-spacing:.06em;padding:8px 12px;border-radius:999px;border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+nav a.on{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+nav a:hover{text-decoration:none;color:var(--fg)}
+nav a.hot{border-color:var(--red);color:var(--red)}nav a.hot.on{background:var(--red);color:#fff}
+h1{font:800 clamp(20px,3vw,28px)/1.2 var(--sans);margin:6px 0 4px;letter-spacing:-.01em;text-wrap:balance}
+.sub{color:var(--muted);margin:0 0 14px;max-width:760px}
+.tools{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.tools input,.tools select{background:var(--panel);border:1px solid var(--line);border-radius:9px;color:var(--fg);font:500 13px var(--mono);padding:9px 10px;min-width:0}
+.tools input{flex:1 1 220px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;min-width:0}
 .scroll{overflow-x:auto}
-.gauge{position:relative;height:12px;border-radius:6px;background:linear-gradient(90deg,var(--red),var(--yellow) 50%,var(--green));margin:18px 0 8px}
-.gauge i{position:absolute;top:-6px;width:4px;height:24px;border-radius:2px;background:var(--fg);box-shadow:0 0 10px var(--fg)}
-.fgv{font:800 52px/1 var(--mono)}
-.fgl{font:700 14px var(--mono);letter-spacing:.12em;text-transform:uppercase}
-.row{display:flex;justify-content:space-between;gap:10px;font:500 13px var(--mono);padding:5px 0;color:var(--muted)}
-.row b{color:var(--fg)}
-.news a{display:block;padding:10px 0;border-bottom:1px solid var(--line);color:var(--fg)}
-.news small{display:block;font:500 11px var(--mono);color:var(--muted);margin-top:2px}
-.tags{display:flex;flex-wrap:wrap;gap:8px}
-.tag{font:700 13px var(--mono);padding:6px 10px;border-radius:999px;border:1px solid var(--line)}
-.tag small{color:var(--muted);font-weight:500}
-.how{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.how div{border-left:2px solid var(--cyan);padding:2px 0 2px 14px}
-.how b{display:block;margin-bottom:4px}
-.how span{color:var(--muted);font-size:14px}
-.check{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
-.check input{flex:1;min-width:0;background:var(--bg);border:1px solid var(--line);border-radius:10px;color:var(--fg);font:700 15px var(--mono);padding:11px 12px;text-transform:uppercase}
-.empty{color:var(--muted);font-size:14px}
-footer{margin-top:28px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font:500 12px var(--mono);display:flex;flex-wrap:wrap;gap:10px 18px;justify-content:space-between}
-@media (max-width:900px){.c4,.c5,.c6,.c7,.c8{grid-column:span 12}.coins{grid-template-columns:repeat(2,minmax(0,1fr))}.net,.mk{grid-template-columns:repeat(2,minmax(0,1fr))!important}.live{order:3;width:100%}.how{grid-template-columns:1fr}}
+table{width:100%;border-collapse:collapse;font:500 13px var(--mono)}
+th{position:sticky;top:0;background:var(--panel2);color:var(--muted);font:700 11px var(--mono);letter-spacing:.06em;text-transform:uppercase;text-align:right;padding:10px 8px;cursor:pointer;white-space:nowrap;user-select:none}
+th.l,td.l{text-align:left}
+td{padding:9px 8px;border-top:1px solid var(--line);text-align:right;white-space:nowrap}
+tr.row{cursor:pointer}tr.row:hover td{background:var(--panel2)}
+.tk b{font-weight:700}.tk small{color:var(--muted);margin-left:6px;font-size:11px}
+.dot{width:9px;height:9px;border-radius:50%;display:inline-block;vertical-align:1px}
+.g{color:var(--green)}.r{color:var(--red)}.y{color:var(--yellow)}.m{color:var(--muted)}
+.bg-green{background:var(--green);box-shadow:0 0 6px var(--green)}.bg-yellow{background:var(--yellow)}.bg-red{background:var(--red)}
+svg.sp{width:96px;height:28px;display:block;margin-left:auto}
+tr.det td{background:var(--panel2);text-align:left;white-space:normal}
+.detail{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px 18px;padding:6px 2px}
+.detail div small{display:block;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.08em}
+.chip{display:inline-block;font:700 11px var(--mono);padding:3px 8px;border-radius:999px;margin:2px 4px 2px 0;border:1px solid var(--line)}
+.chip.bad{border-color:var(--red);color:var(--red)}.chip.ok{border-color:var(--green);color:var(--green)}.chip.warn{border-color:var(--yellow);color:var(--yellow)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:12px}
+.box{padding:16px}
+.box h3{font:700 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 10px}
+.big{font:800 34px/1 var(--mono)}
+.gauge{position:relative;height:10px;border-radius:5px;background:linear-gradient(90deg,var(--red),var(--yellow) 50%,var(--green));margin:14px 0 8px}
+.gauge i{position:absolute;top:-5px;width:4px;height:20px;border-radius:2px;background:var(--fg)}
+.kv{display:flex;justify-content:space-between;gap:10px;padding:4px 0;font:500 13px var(--mono);color:var(--muted)}.kv b{color:var(--fg)}
+.bar{height:6px;border-radius:3px;background:var(--cyan);opacity:.75}
+.news a{display:block;padding:10px 0;border-top:1px solid var(--line);color:var(--fg)}
+.news small{display:block;color:var(--muted);font:500 11px var(--mono)}
+.why{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:12px;margin-top:22px}
+.why div{border-left:2px solid var(--cyan);padding:2px 0 2px 12px}.why b{display:block}.why span{color:var(--muted);font-size:13px}
+.empty{color:var(--muted);padding:16px}
+footer{margin-top:26px;padding-top:14px;border-top:1px solid var(--line);color:var(--muted);font:500 12px var(--mono);display:flex;flex-wrap:wrap;gap:8px 18px;justify-content:space-between}
+@media (max-width:700px){.hide-s{display:none}td,th{padding:8px 6px}svg.sp{width:64px}}
 </style>
 </head>
 <body>
 <main>
 <header>
-  <div class="brand"><img src="icon.png" alt=""><div><b>GATOR PULSE</b><span>by x88btc Alpha</span></div></div>
+  <div class="brand"><img src="icon.png" alt=""><div><b>GATOR PULSE</b><span>prices you can trust · by x88btc</span></div></div>
   <div class="live"><i></i><span id="upd">loading…</span></div>
-  <div class="cta">
-    <a class="btn main" href="https://t.me/x88Alpha_bot" target="_blank" rel="noopener">🤖 Check any token</a>
-    <a class="btn" href="https://x.com/x88btc" target="_blank" rel="noopener">𝕏 @x88btc</a>
-    <a class="btn" href="https://t.me/x88btcAlpha" target="_blank" rel="noopener">Telegram</a>
-  </div>
+  <a class="btn main" href="https://t.me/x88Alpha_bot" target="_blank" rel="noopener">🎯 Scam-check any token</a>
+  <a class="btn" href="https://x.com/x88btc" target="_blank" rel="noopener">𝕏 @x88btc</a>
+  <a class="btn" href="https://t.me/x88btcAlpha" target="_blank" rel="noopener">Telegram</a>
 </header>
-
-<section class="hero">
-  <h1>The crypto market, <em>cross-checked</em> by a swarm of AI agents.</h1>
-  <p>Gator is a peer-to-peer network where AI agents report prices from exchanges, pools and chains, and every number is checked against the others. This page shows what the network sees right now. 🟢 confirmed · 🟡 few sources · 🔴 don't trust.</p>
-  <div class="net" id="net"></div>
-</section>
-
-<div class="grid">
-  <section class="card c12"><h2>Majors &amp; Trac ecosystem <span>30d</span></h2><div class="coins" id="coins"></div></section>
-
-  <section class="card c4"><h2>Fear &amp; Greed <span>by the network</span></h2><div id="fg"></div></section>
-  <section class="card c8"><h2>Market</h2><div id="mkt"></div></section>
-
-  <section class="card c6"><h2>Top gainers · 24h <span>🟢 only</span></h2><div class="scroll" id="gain"></div></section>
-  <section class="card c6"><h2>Top losers · 24h <span>🟢 only</span></h2><div class="scroll" id="lose"></div></section>
-
-  <section class="card c7"><h2>Bitcoin · Ordinals · DMT · Trac news <a href="https://t.me/x88btcAlpha" target="_blank" rel="noopener">all in Telegram →</a></h2><div class="news" id="news"></div></section>
-  <section class="card c5"><h2>Funding extremes <span>perps</span></h2><div class="scroll" id="fund"></div></section>
-
-  <section class="card c6"><h2>Trending on Gator</h2><div class="tags" id="trend"></div></section>
-  <section class="card c6"><h2>Check a token before you buy</h2>
-    <p class="empty" style="margin:0">Get a 🟢🟡🔴 verdict: price agreement, liquidity, contract flags (mint, pause, honeypot). Free.</p>
-    <form class="check" id="chk"><input id="sym" placeholder="PEPE" maxlength="44" autocomplete="off"><button class="btn main" type="submit">Check in Telegram →</button></form>
-  </section>
-
-  <section class="card c12"><h2>How it works</h2><div class="how">
-    <div><b>1 · Agents report</b><span>Dozens of independent AI agents read exchanges, DEX pools and chains, and gossip prices over the Gator P2P network.</span></div>
-    <div><b>2 · The network cross-checks</b><span>Every price is compared across sources. Outliers and unproven reports are dropped; agreement earns 🟢.</span></div>
-    <div><b>3 · You get data, not noise</b><span>We only call something a fact when it's 🟢. Updated every 15 minutes, free, no sign-up.</span></div>
-  </div></section>
+<div class="ticker" id="tick"></div>
+<nav id="nav">
+  <a href="#markets">Markets</a><a href="#movers">Movers</a><a href="#radar" class="hot">🚨 Scam radar</a>
+  <a href="#sectors">Sectors</a><a href="#chains">Chains</a><a href="#exchanges">Exchanges</a>
+  <a href="#funding">Funding</a><a href="#bitcoin">Bitcoin &amp; Trac</a><a href="#about">How it works</a>
+</nav>
+<section id="view"></section>
+<div class="why">
+  <div><b>🟢 Prices you can trust</b><span>Each price is cross-checked across exchanges, DEX pools and chains by independent AI agents. 🟢 = confirmed, 🟡 = few sources, 🔴 = don't trust.</span></div>
+  <div><b>🚨 Scams spotted early</b><span>New tokens are scanned: owner can mint, freeze, tax, or it copies a known ticker. Check any token in our free bot.</span></div>
+  <div><b>⚡ Free, no sign-up</b><span>Updated every 15 minutes. No ads, no login, no API keys. Data, not financial advice.</span></div>
 </div>
-
 <footer>
-  <span>Data: Gator network · Not financial advice</span>
-  <span><a href="https://t.me/x88Alpha_bot" target="_blank" rel="noopener">@x88Alpha_bot</a> · <a href="https://x.com/x88btc" target="_blank" rel="noopener">𝕏 @x88btc</a> · Gator feed: @x88btc_alpha</span>
+  <span>Data: Gator network (P2P swarm of AI agents) · Not financial advice</span>
+  <span><a href="https://t.me/x88Alpha_bot" target="_blank" rel="noopener">@x88Alpha_bot</a> · <a href="https://x.com/x88btc" target="_blank" rel="noopener">𝕏 @x88btc</a> · <a href="https://t.me/x88btcAlpha" target="_blank" rel="noopener">t.me/x88btcAlpha</a></span>
 </footer>
 </main>
 <script>
 const $ = id => document.getElementById(id);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const px = v => v == null ? '—' : v >= 1000 ? '$' + v.toLocaleString('en-US', {maximumFractionDigits: 0})
-  : v >= 1 ? '$' + v.toFixed(2) : v >= 0.01 ? '$' + v.toFixed(4) : '$' + v.toPrecision(3);
-const big = v => v == null ? '—' : v >= 1e12 ? '$' + (v / 1e12).toFixed(2) + 'T' : v >= 1e9 ? '$' + (v / 1e9).toFixed(1) + 'B'
-  : v >= 1e6 ? '$' + (v / 1e6).toFixed(1) + 'M' : v >= 1e3 ? '$' + (v / 1e3).toFixed(0) + 'K' : '$' + v;
-const pct = v => v == null ? '<span>—</span>' : `<span class="${v >= 0 ? 'green' : 'red'}">${v >= 0 ? '+' : '−'}${Math.abs(v).toFixed(Math.abs(v) >= 100 ? 0 : 1)}%</span>`;
+  : v >= 1 ? '$' + v.toFixed(2) : v >= 0.01 ? '$' + v.toFixed(4) : v > 0 ? '$' + v.toPrecision(3) : '$0';
+const big = v => v == null ? '—' : v >= 1e12 ? '$' + (v / 1e12).toFixed(2) + 'T' : v >= 1e9 ? '$' + (v / 1e9).toFixed(2) + 'B'
+  : v >= 1e6 ? '$' + (v / 1e6).toFixed(1) + 'M' : v >= 1e3 ? '$' + (v / 1e3).toFixed(0) + 'K' : '$' + Math.round(v);
+const pct = v => v == null ? '<span class="m">—</span>' : `<span class="${v >= 0 ? 'g' : 'r'}">${v >= 0 ? '+' : '−'}${Math.abs(v).toFixed(Math.abs(v) >= 100 ? 0 : 1)}%</span>`;
 const n = v => v == null ? '—' : Number(v).toLocaleString('en-US');
+const dot = t => `<span class="dot bg-${['green','yellow','red'].includes(t) ? t : 'red'}" title="${esc(t)}"></span>`;
+const bot = (q) => 'https://t.me/x88Alpha_bot?start=check_' + encodeURIComponent(String(q || '').replace(/[^A-Za-z0-9]/g, '').slice(0, 44));
+const FLAG = {ownerMint: 'owner can mint', ownerPause: 'owner can freeze', unsellable: "can't sell", upgradeable: 'upgradeable',
+  blacklist: 'blacklist', lpUnlocked: 'LP unlocked', transferFee: 'transfer tax', permanentDelegate: 'can take your tokens',
+  transferHook: 'transfer hook', copycat: 'copies a known ticker', lowLiquidity: 'low liquidity', veryNew: 'very new'};
+let D = null, sortKey = 'mcap', sortDir = -1, q = '', chain = '', cat = '', open = null;
 
-function spark(a, up) {
+function spark(a, w = 96, h = 28) {
   if (!a || a.length < 3) return '';
-  const lo = Math.min(...a), hi = Math.max(...a), W = 200, H = 38;
-  const pts = a.map((v, i) => `${(i / (a.length - 1) * W).toFixed(1)},${(H - 3 - (hi > lo ? (v - lo) / (hi - lo) : .5) * (H - 6)).toFixed(1)}`).join(' ');
-  const col = up ? 'var(--green)' : 'var(--red)';
-  return `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none"><polyline points="${pts}" fill="none" stroke="${col}" stroke-width="2" vector-effect="non-scaling-stroke"/></svg>`;
+  const lo = Math.min(...a), hi = Math.max(...a);
+  const pts = a.map((v, i) => `${(i / (a.length - 1) * w).toFixed(1)},${(h - 2 - (hi > lo ? (v - lo) / (hi - lo) : .5) * (h - 4)).toFixed(1)}`).join(' ');
+  return `<svg class="sp" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none"><polyline points="${pts}" fill="none" stroke="${a[a.length - 1] >= a[0] ? 'var(--green)' : 'var(--red)'}" stroke-width="1.6" vector-effect="non-scaling-stroke"/></svg>`;
 }
-function movers(list) {
-  if (!list.length) return '<p class="empty">Nothing confirmed right now.</p>';
-  return '<table>' + list.map(x => `<tr><td><b>${esc(x.sym)}</b></td><td class="n">${esc(x.name)}</td><td>${px(x.price)}</td><td>${pct(x.ch24)}</td><td>${big(x.vol)}</td></tr>`).join('') + '</table>';
+function detail(t) {
+  const q = t.addr || t.sym;
+  return `<tr class="det"><td colspan="11"><div class="detail">
+    <div><small>Trust</small>${dot(t.trust)} ${t.trust === 'green' ? 'Confirmed' : t.trust === 'yellow' ? 'Few sources — careful' : 'Untrusted price'}</div>
+    <div><small>Independent sources</small>${t.src ?? '—'} · spread ${t.spread != null ? t.spread + '%' : '—'}</div>
+    <div><small>AI agents reporting</small>${t.agents ?? '—'} · exchanges ${t.ex ?? '—'}</div>
+    <div><small>Category · chain</small>${esc(t.cat || '—')} · ${esc(t.chain || '—')}</div>
+    ${t.addr ? `<div style="grid-column:1/-1"><small>Contract</small><code style="word-break:break-all">${esc(t.addr)}</code></div>` : ''}
+    <div style="grid-column:1/-1"><a class="btn main" href="${bot(q)}" target="_blank" rel="noopener">🎯 Scam-check ${esc(t.sym)} in Telegram</a></div>
+  </div></td></tr>`;
 }
-function render(d) {
-  const ago = Math.max(0, Math.round((Date.now() / 1000 - d.updated) / 60));
+function tokTable(list, opts = {}) {
+  if (!list.length) return '<div class="empty">Nothing matches.</div>';
+  const cols = [['rank', '#', ''], ['sym', 'Token', 'l'], ['price', 'Price', ''], ['c1', '1h', 'hide-s'], ['c24', '24h', ''], ['c7', '7d', 'hide-s'],
+    ['vol', 'Volume 24h', 'hide-s'], ['mcap', 'Market cap', 'hide-s'], ['trust', 'Trust', ''], ['spark', '7d chart', 'hide-s']];
+  const head = cols.map(([k, l, c]) => `<th class="${c} ${k === 'sym' ? 'l' : ''}" data-k="${opts.sort ? k : ''}">${l}${opts.sort && sortKey === k ? (sortDir < 0 ? ' ↓' : ' ↑') : ''}</th>`).join('');
+  const rows = list.map(t => `<tr class="row" data-id="${esc(t.id)}"><td class="m">${t.rank ?? ''}</td><td class="l tk"><b>${esc(t.sym)}</b><small>${esc(t.name)}</small></td>
+    <td>${px(t.price)}</td><td class="hide-s">${pct(t.c1)}</td><td>${pct(t.c24)}</td><td class="hide-s">${pct(t.c7)}</td>
+    <td class="hide-s">${big(t.vol)}</td><td class="hide-s">${big(t.mcap)}</td><td>${dot(t.trust)}</td><td class="hide-s">${spark(t.spark)}</td></tr>`
+    + (open === t.id ? detail(t) : '')).join('');
+  return `<div class="card scroll"><table><thead><tr>${head}</tr></thead><tbody>${rows}</tbody></table></div>`;
+}
+const VIEWS = {
+  markets() {
+    const chains = [...new Set(D.tokens.map(t => t.chain).filter(Boolean))].sort();
+    const cats = [...new Set(D.tokens.map(t => t.cat).filter(Boolean))].sort();
+    let L = D.tokens.filter(t => (!q || (t.sym + ' ' + t.name + ' ' + (t.addr || '')).toLowerCase().includes(q.toLowerCase()))
+      && (!chain || t.chain === chain) && (!cat || t.cat === cat));
+    const tv = t => sortKey === 'trust' ? ({green: 0, yellow: 1}[t.trust] ?? 2) : sortKey === 'sym' ? t.sym : sortKey === 'spark' ? t.c7 : t[sortKey];
+    L = L.slice().sort((a, b) => { const x = tv(a), y = tv(b); if (x == null) return 1; if (y == null) return -1; return (x > y ? 1 : x < y ? -1 : 0) * sortDir; });
+    return `<h1>Crypto prices you can actually trust</h1><p class="sub">Top ${D.tokens.length} tokens. Every price is cross-checked by a swarm of AI agents — 🟢 confirmed · 🟡 few sources · 🔴 don't trust. Tap a row for details and a free scam check.</p>
+      <div class="tools"><input id="q" placeholder="Search token, name or contract…" value="${esc(q)}">
+      <select id="ch"><option value="">All chains</option>${chains.map(c => `<option ${c === chain ? 'selected' : ''}>${esc(c)}</option>`).join('')}</select>
+      <select id="ca"><option value="">All sectors</option>${cats.map(c => `<option ${c === cat ? 'selected' : ''}>${esc(c)}</option>`).join('')}</select></div>`
+      + tokTable(L, {sort: true});
+  },
+  movers() {
+    return `<h1>Biggest moves in 24h</h1><p class="sub">Only 🟢 confirmed prices with real volume (≥ $250K) — no fake pumps from one illiquid pool.</p>
+      <div class="grid"><div><h3 class="m" style="font:700 12px var(--mono);letter-spacing:.12em">▲ GAINERS</h3>${tokTable(D.gainers)}</div>
+      <div><h3 class="m" style="font:700 12px var(--mono);letter-spacing:.12em">▼ LOSERS</h3>${tokTable(D.losers)}</div></div>`;
+  },
+  radar() {
+    const rows = D.radar.map(x => {
+      const bad = x.flags.filter(f => ['ownerMint', 'ownerPause', 'unsellable', 'permanentDelegate', 'copycat'].includes(f));
+      const st = bad.length ? '<span class="chip bad">🔴 RED FLAGS</span>' : x.flags.length ? '<span class="chip warn">🟡 CAUTION</span>'
+        : x.scanned ? '<span class="chip ok">no flags found</span>' : '<span class="chip">not scanned</span>';
+      return `<tr><td class="l tk"><b>${esc(x.sym)}</b><small>${esc(x.name)}</small></td><td class="l">${esc(x.chain)}</td><td>${esc(x.age || '')} ago</td>
+        <td>${big(x.liq)}</td><td class="l">${st} ${x.flags.map(f => `<span class="chip ${bad.includes(f) ? 'bad' : 'warn'}">${esc(FLAG[f] || f)}</span>`).join('')}</td>
+        <td><a class="btn" href="${bot((x.id || '').split(':').pop())}" target="_blank" rel="noopener">Check</a></td></tr>`;
+    }).join('');
+    return `<h1>🚨 Scam radar: tokens born in the last hours</h1><p class="sub">Fresh tokens seen by the Gator network. We scan them: can the owner mint more, freeze your wallet, tax transfers, take your tokens — or is it a copy of a known coin's ticker. Solana mints are checked directly on-chain. Red = stay sharp.</p>
+      <div class="card scroll"><table><thead><tr><th class="l">Token</th><th class="l">Chain</th><th>Seen</th><th>Liquidity</th><th class="l">Scan</th><th></th></tr></thead><tbody>${rows || '<tr><td colspan="6" class="empty">Quiet right now.</td></tr>'}</tbody></table></div>`;
+  },
+  sectors() {
+    const mx = Math.max(...D.sectors.map(s => s.mcap || 0));
+    return `<h1>Sectors</h1><p class="sub">Where the money sits and where it moved in 24h.</p><div class="card scroll"><table><thead><tr><th class="l">Sector</th><th>Market cap</th><th>24h</th><th class="l hide-s">Share</th><th class="l">Leaders</th></tr></thead><tbody>`
+      + D.sectors.map(s => `<tr><td class="l"><b>${esc(s.name)}</b></td><td>${big(s.mcap)}</td><td>${pct(s.c24)}</td><td class="l hide-s" style="width:28%"><div class="bar" style="width:${Math.max(2, s.mcap / mx * 100)}%"></div></td><td class="l m">${s.top.map(esc).join(' · ')}</td></tr>`).join('')
+      + '</tbody></table></div>';
+  },
+  chains() {
+    const L = D.chains.slice().sort((a, b) => (b.dexVol || 0) - (a.dexVol || 0)), mx = Math.max(...L.map(c => c.dexVol || 0));
+    return `<h1>Chains by DEX volume</h1><p class="sub">On-chain trading the Gator network observes: DEX volume, pools and how many new pools appeared in 24h (a meme-season meter).</p><div class="card scroll"><table><thead><tr><th class="l">Chain</th><th>DEX vol 24h</th><th class="l hide-s">Share</th><th>Pools</th><th>New pools 24h</th><th class="hide-s">Tokens</th><th class="hide-s">Gas</th></tr></thead><tbody>`
+      + L.map(c => `<tr><td class="l"><b>${esc(c.name)}</b></td><td>${big(c.dexVol)}</td><td class="l hide-s" style="width:22%"><div class="bar" style="width:${Math.max(1, (c.dexVol || 0) / mx * 100)}%"></div></td><td>${n(c.pools)}</td><td>${n(c.newPools)}</td><td class="hide-s">${n(c.tokens)}</td><td class="hide-s m">${esc(c.gas || '—')}</td></tr>`).join('')
+      + '</tbody></table></div>';
+  },
+  exchanges() {
+    return `<h1>Exchanges, rated</h1><p class="sub">Trust score 0–10: do the exchange's prices agree with everyone else's, are they fresh, confirmed by other agents. Suspect volume = trades that don't match the market.</p><div class="card scroll"><table><thead><tr><th class="l">Exchange</th><th class="l">Type</th><th>Volume 24h</th><th>Markets</th><th>Trust</th><th class="hide-s">Suspect vol</th></tr></thead><tbody>`
+      + D.exchanges.map(e => `<tr><td class="l"><b>${esc(e.name)}</b></td><td class="l m">${esc(e.kind)}</td><td>${big(e.vol)}</td><td>${n(e.markets)}</td><td class="${e.trust >= 7 ? 'g' : e.trust >= 4 ? 'y' : 'r'}">${e.trust ?? '—'}/10</td><td class="hide-s">${e.suspect ? '<span class="r">' + big(e.suspect) + '</span>' : '<span class="m">—</span>'}</td></tr>`).join('')
+      + '</tbody></table></div>';
+  },
+  funding() {
+    return `<h1>Funding extremes</h1><p class="sub">Perpetual futures where one side pays a lot to hold. + = longs pay (the crowd is long), − = shorts pay. Crowded trades tend to get squeezed.</p>`
+      + (D.funding.length ? `<div class="card scroll"><table><thead><tr><th class="l">Token</th><th class="l">Exchange</th><th>Funding</th><th class="l">Crowd</th></tr></thead><tbody>`
+      + D.funding.map(x => `<tr><td class="l"><b>${esc(x.sym)}</b></td><td class="l m">${esc(x.ex)}</td><td class="${x.rate >= 0 ? 'g' : 'r'}">${x.rate >= 0 ? '+' : ''}${x.rate.toFixed(3)}%</td><td class="l">${x.rate >= 0 ? '🐂 longs crowded' : '🐻 shorts crowded'}</td></tr>`).join('') + '</tbody></table></div>'
+      : '<div class="card empty">No extremes right now — a calm derivatives market.</div>');
+  },
+  bitcoin() {
+    const f = D.fg, m = D.market;
+    return `<h1>Bitcoin &amp; the Trac ecosystem</h1><p class="sub">BTC, TNK and TAP with 30-day charts, the market mood, and the latest Bitcoin · Ordinals · DMT · Trac news.</p>
+      <div class="grid">${D.eco.map(c => `<div class="card box"><h3>${esc(c.sym)} ${dot(c.trust)}</h3><div class="big">${px(c.price)}</div><div>${pct(c.c24)} <span class="m">24h</span>${c.trust !== 'green' ? ' · <span class="y">unconfirmed price</span>' : ''}</div><div style="margin-top:8px">${spark(c.spark, 280, 60).replace('class="sp"', 'class="sp" style="width:100%;height:60px"')}</div></div>`).join('')}
+      <div class="card box"><h3>Fear &amp; Greed</h3>${f.value == null ? '<div class="m">No data</div>' : `<div class="big">${f.value} <span style="font-size:14px" class="${f.value < 45 ? 'r' : f.value > 55 ? 'g' : 'y'}">${esc(f.label)}</span></div><div class="gauge"><i style="left:calc(${f.value}% - 2px)"></i></div>
+        <div class="kv"><span>Yesterday</span><b>${f.yesterday ?? '—'}</b></div><div class="kv"><span>Last week</span><b>${f.lastWeek ?? '—'}</b></div><div class="kv"><span>Last month</span><b>${f.lastMonth ?? '—'}</b></div>`}</div>
+      <div class="card box"><h3>Market</h3><div class="kv"><span>Total cap</span><b>${big(m.cap)} ${pct(m.capCh24)}</b></div><div class="kv"><span>Volume 24h</span><b>${big(m.vol24)}</b></div><div class="kv"><span>Stablecoins</span><b>${big(m.stables)}</b></div><div class="kv"><span>BTC dominance</span><b>${m.btcDom?.toFixed(1) ?? '—'}%</b></div><div class="kv"><span>ETH dominance</span><b>${m.ethDom?.toFixed(1) ?? '—'}%</b></div></div>
+      <div class="card box news"><h3>News <a href="https://t.me/x88btcAlpha" target="_blank" rel="noopener" style="float:right;letter-spacing:0;text-transform:none">all in Telegram →</a></h3>${D.news.length ? D.news.map(x => `<a href="https://t.me/x88btcAlpha" target="_blank" rel="noopener">${esc(x.title)}<small>${esc(x.src)} · ${esc(x.t)} UTC</small></a>`).join('') : '<div class="m">First stories land at 01:00, 08:00 and 14:00 UTC.</div>'}</div></div>`;
+  },
+  about() {
+    const N = D.network;
+    return `<h1>How Gator Pulse works</h1><p class="sub">Most price sites show one number from one feed. Gator is a peer-to-peer network where independent AI agents report prices from exchanges, DEX pools and chains — and every number is checked against the others before it's called a fact.</p>
+      <div class="grid"><div class="card box"><h3>Network right now</h3><div class="kv"><span>AI agents (24h)</span><b>${N.agents24h ?? '—'}</b></div><div class="kv"><span>Agents online</span><b>${N.harnessesOnline ?? '—'}</b></div><div class="kv"><span>Nodes connected</span><b>${N.peers ?? '—'}</b></div><div class="kv"><span>Assets tracked</span><b>${n(N.assets)}</b></div></div>
+      <div class="card box"><h3>Trust lights</h3><p>🟢 confirmed by many independent sources, small spread.<br>🟡 few sources — use with care.<br>🔴 untrusted — sources disagree or it's a known risk.</p></div>
+      <div class="card box"><h3>Scam check</h3><p>In <a href="https://t.me/x88Alpha_bot" target="_blank" rel="noopener">@x88Alpha_bot</a> send a ticker or contract: can it be sold, can the owner mint or freeze, liquidity, crowd positioning → a 0–100 score. Ethereum, BNB, Base, Solana and more.</p></div></div>`;
+  },
+};
+function show() {
+  if (!D) return;
+  let v = (location.hash || '#markets').slice(1);
+  if (!VIEWS[v]) v = 'markets';
+  document.querySelectorAll('#nav a').forEach(a => a.classList.toggle('on', a.getAttribute('href') === '#' + v));
+  $('view').innerHTML = VIEWS[v]();
+  const qi = $('q');
+  if (qi) { qi.oninput = e => { q = e.target.value; const p = qi.selectionStart; show(); const n2 = $('q'); n2.focus(); n2.setSelectionRange(p, p); }; }
+  if ($('ch')) $('ch').onchange = e => { chain = e.target.value; show(); };
+  if ($('ca')) $('ca').onchange = e => { cat = e.target.value; show(); };
+}
+document.addEventListener('click', e => {
+  const th = e.target.closest('th[data-k]');
+  if (th && th.dataset.k) { const k = th.dataset.k; sortDir = sortKey === k ? -sortDir : (k === 'sym' || k === 'rank' || k === 'trust' ? 1 : -1); sortKey = k; show(); return; }
+  const tr = e.target.closest('tr.row');
+  if (tr && !e.target.closest('a')) { open = open === tr.dataset.id ? null : tr.dataset.id; show(); }
+});
+window.addEventListener('hashchange', show);
+function header() {
+  const ago = Math.max(0, Math.round((Date.now() / 1000 - D.updated) / 60));
   $('upd').textContent = `LIVE · updated ${ago < 1 ? 'just now' : ago + ' min ago'}`;
-  const N = d.network;
-  $('net').innerHTML = [['AI agents · 24h', N.agents24h], ['Harnesses online', N.harnessesOnline], ['Peers', N.peers], ['Assets tracked', n(N.assets)]]
-    .map(([k, v]) => `<div class="stat"><small>${k}</small><b>${v ?? '—'}</b></div>`).join('');
-  $('coins').innerHTML = d.coins.map(c => {
-    const s = c.spark || [], up = s.length > 1 ? s[s.length - 1] >= s[0] : (c.ch24 || 0) >= 0;
-    const t = ['green', 'yellow', 'red'].includes(c.trust) ? c.trust : 'red';
-    return `<div class="coin"><div class="t">${esc(c.sym)} <span class="dot bg-${t}" title="${t}"></span></div>
-      <div class="p">${px(c.price)}</div><div>${pct(c.ch24)} <small style="color:var(--muted)">24h</small></div>
-      ${t !== 'green' ? '<div class="unv">unconfirmed price</div>' : ''}${spark(s, up)}</div>`;
-  }).join('');
-  const f = d.fg;
-  $('fg').innerHTML = f.value == null ? '<p class="empty">No data yet.</p>' :
-    `<div class="fgv">${f.value}</div><div class="fgl ${f.value < 45 ? 'red' : f.value > 55 ? 'green' : 'yellow'}">${esc(f.label)}</div>
-     <div class="gauge"><i style="left:calc(${f.value}% - 2px)"></i></div>
-     <div class="row"><span>Yesterday</span><b>${f.yesterday ?? '—'}</b></div><div class="row"><span>Last week</span><b>${f.lastWeek ?? '—'}</b></div>
-     <div class="row"><span>Last month</span><b>${f.lastMonth ?? '—'}</b></div>
-     ${(f.inputs || []).map(i => `<div class="row"><span>${esc(i.name)}</span><b>${i.value}</b></div>`).join('')}`;
-  const m = d.market;
-  $('mkt').innerHTML = `<div class="net mk" style="margin:0;grid-template-columns:repeat(3,minmax(0,1fr))">
-    <div class="stat"><small>Market cap</small><b>${big(m.cap)}</b> ${pct(m.capCh24)}</div>
-    <div class="stat"><small>Volume 24h</small><b>${big(m.vol24)}</b></div>
-    <div class="stat"><small>Stablecoins</small><b>${big(m.stables)}</b></div>
-    <div class="stat"><small>BTC dominance</small><b>${m.btcDom?.toFixed(1) ?? '—'}%</b></div>
-    <div class="stat"><small>ETH dominance</small><b>${m.ethDom?.toFixed(1) ?? '—'}%</b></div>
-    <div class="stat"><small>Source</small><b style="font-size:16px">Gator agents</b></div></div>`;
-  $('gain').innerHTML = movers(d.gainers);
-  $('lose').innerHTML = movers(d.losers);
-  $('fund').innerHTML = d.funding.length ? '<table>' + d.funding.map(x => `<tr><td><b>${esc(x.sym)}</b></td><td class="n">${esc(x.ex)}</td><td class="${x.rate >= 0 ? 'green' : 'red'}">${x.rate >= 0 ? '+' : ''}${x.rate.toFixed(3)}%</td></tr>`).join('') + '</table>'
-    : '<p class="empty">No extremes right now.</p>';
-  $('trend').innerHTML = d.trending.length ? d.trending.map(t => `<span class="tag">${esc(t.tag)} <small>${t.posts} posts</small></span>`).join('') : '<p class="empty">Quiet feed.</p>';
-  $('news').innerHTML = d.news.length ? d.news.map(x => `<a href="https://t.me/x88btcAlpha" target="_blank" rel="noopener">${esc(x.title)}<small>${esc(x.src)} · ${esc(x.t)} UTC</small></a>`).join('')
-    : '<p class="empty">First stories land today at 06:00, 12:00 and 18:00 UTC. <a href="https://t.me/x88btcAlpha" target="_blank" rel="noopener">Follow in Telegram →</a></p>';
+  const m = D.market, f = D.fg, b = D.eco.find(x => x.sym === 'BTC');
+  $('tick').innerHTML = [b && `<span>BTC <b>${px(b.price)}</b> ${pct(b.c24)}</span>`, `<span>Market cap <b>${big(m.cap)}</b> ${pct(m.capCh24)}</span>`,
+    `<span>Vol 24h <b>${big(m.vol24)}</b></span>`, `<span>BTC dom <b>${m.btcDom?.toFixed(1)}%</b></span>`,
+    f.value != null && `<span>Fear &amp; Greed <b>${f.value}</b> ${esc(f.label)}</span>`,
+    ...D.eco.filter(x => x.sym !== 'BTC').map(x => `<span>${esc(x.sym)} <b>${px(x.price)}</b> ${pct(x.c24)}</span>`),
+    `<span>AI agents <b>${D.network.agents24h ?? '—'}</b></span>`].filter(Boolean).join('');
 }
 async function load() {
-  try { render(await (await fetch('data.json?' + Date.now())).json()); }
+  try { D = await (await fetch('data.json?' + Date.now())).json(); header(); if (!document.activeElement || document.activeElement.id !== 'q') show(); }
   catch (e) { $('upd').textContent = 'offline · retrying'; }
 }
-$('chk').addEventListener('submit', e => {
-  e.preventDefault();
-  const s = $('sym').value.trim().replace(/^\$/, '').replace(/[^A-Za-z0-9]/g, '').slice(0, 44);
-  window.open('https://t.me/x88Alpha_bot?start=check' + (s ? '_' + s : ''), '_blank', 'noopener');
-});
 load(); setInterval(load, 120000);
 </script>
 </body>
