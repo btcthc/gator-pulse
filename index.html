@@ -116,7 +116,7 @@ footer{margin-top:26px;padding-top:14px;border-top:1px solid var(--line);color:v
 const $ = id => document.getElementById(id);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const px = v => v == null ? '—' : v >= 1000 ? '$' + v.toLocaleString('en-US', {maximumFractionDigits: 0})
-  : v >= 1 ? '$' + v.toFixed(2) : v >= 0.01 ? '$' + v.toFixed(4) : v > 0 ? '$' + v.toPrecision(3) : '$0';
+  : v >= 1 ? '$' + v.toFixed(2) : v >= 0.01 ? '$' + v.toFixed(4) : v > 0 ? '$' + v.toFixed(Math.min(14, 2 - Math.floor(Math.log10(v)))) : '$0';
 const big = v => v == null ? '—' : v >= 1e12 ? '$' + (v / 1e12).toFixed(2) + 'T' : v >= 1e9 ? '$' + (v / 1e9).toFixed(2) + 'B'
   : v >= 1e6 ? '$' + (v / 1e6).toFixed(1) + 'M' : v >= 1e3 ? '$' + (v / 1e3).toFixed(0) + 'K' : '$' + Math.round(v);
 const pct = v => v == null ? '<span class="m">—</span>' : `<span class="${v >= 0 ? 'g' : 'r'}">${v >= 0 ? '+' : '−'}${Math.abs(v).toFixed(Math.abs(v) >= 100 ? 0 : 1)}%</span>`;
@@ -155,6 +155,14 @@ function tokTable(list, opts = {}) {
     <td class="hide-s">${big(t.vol)}</td><td class="hide-s">${big(t.mcap)}</td><td>${dot(t.trust)}</td><td class="hide-s">${spark(t.spark)}</td></tr>`
     + (open === t.id ? detail(t) : '')).join('');
   return `<div class="card scroll"><table><thead><tr>${head}</tr></thead><tbody>${rows}</tbody></table></div>`;
+}
+function btcEco() {
+  const L = D.btceco || []; if (!L.length) return '';
+  const groups = [...new Set(L.map(x => x.g))];
+  return `<h1 style="margin-top:22px">Bitcoin ecosystem tokens</h1><p class="sub">DMT, Trac, Ordinals (BRC-20) and Runes. BTC, TNK and TAP above are verified by the Gator swarm; the network doesn't see these yet, so prices here come from CoinGecko (marked).</p>`
+    + groups.map(gr => `<div class="card scroll" style="margin-bottom:12px"><table><thead><tr><th class="l">${esc(gr)}</th><th>Price</th><th>24h</th><th class="hide-s">7d</th><th class="hide-s">Volume 24h</th><th>Market cap</th><th class="hide-s">7d chart</th><th class="l hide-s">Source</th></tr></thead><tbody>`
+      + L.filter(x => x.g === gr).map(x => `<tr><td class="l tk"><b>${esc(x.sym)}</b><small>${esc(x.name)}</small></td><td>${px(x.price)}</td><td>${pct(x.c24)}</td><td class="hide-s">${pct(x.c7)}</td><td class="hide-s">${big(x.vol)}</td><td>${big(x.mcap)}</td><td class="hide-s">${spark(x.spark)}</td><td class="l hide-s m">${esc(x.src)}</td></tr>`).join('')
+      + '</tbody></table></div>').join('');
 }
 const VIEWS = {
   network() {
@@ -244,7 +252,7 @@ Environment=NODE_OPTIONS=--max-old-space-size=2048</pre></li>
       <div class="card box"><h3>Fear &amp; Greed</h3>${f.value == null ? '<div class="m">No data</div>' : `<div class="big">${f.value} <span style="font-size:14px" class="${f.value < 45 ? 'r' : f.value > 55 ? 'g' : 'y'}">${esc(f.label)}</span></div><div class="gauge"><i style="left:calc(${f.value}% - 2px)"></i></div>
         <div class="kv"><span>Yesterday</span><b>${f.yesterday ?? '—'}</b></div><div class="kv"><span>Last week</span><b>${f.lastWeek ?? '—'}</b></div><div class="kv"><span>Last month</span><b>${f.lastMonth ?? '—'}</b></div>`}</div>
       <div class="card box"><h3>Market</h3><div class="kv"><span>Total cap</span><b>${big(m.cap)} ${pct(m.capCh24)}</b></div><div class="kv"><span>Volume 24h</span><b>${big(m.vol24)}</b></div><div class="kv"><span>Stablecoins</span><b>${big(m.stables)}</b></div><div class="kv"><span>BTC dominance</span><b>${m.btcDom?.toFixed(1) ?? '—'}%</b></div><div class="kv"><span>ETH dominance</span><b>${m.ethDom?.toFixed(1) ?? '—'}%</b></div></div>
-      <div class="card box news"><h3>News <a href="https://t.me/x88btcAlpha" target="_blank" rel="noopener" style="float:right;letter-spacing:0;text-transform:none">all in Telegram →</a></h3>${D.news.length ? D.news.map(x => `<a href="https://t.me/x88btcAlpha" target="_blank" rel="noopener">${esc(x.title)}<small>${esc(x.t)} UTC</small></a>`).join('') : '<div class="m">First stories land at 01:00, 08:00 and 14:00 UTC.</div>'}</div></div>`;
+      <div class="card box news"><h3>News <a href="https://t.me/x88btcAlpha" target="_blank" rel="noopener" style="float:right;letter-spacing:0;text-transform:none">all in Telegram →</a></h3>${D.news.length ? D.news.map(x => `<a href="https://t.me/x88btcAlpha" target="_blank" rel="noopener">${esc(x.title)}<small>${esc(x.t)} UTC</small></a>`).join('') : '<div class="m">First stories land at 01:00, 08:00 and 14:00 UTC.</div>'}</div></div>` + btcEco();
   },
   about() {
     const N = D.network;
