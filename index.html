@@ -83,7 +83,7 @@ footer{margin-top:26px;padding-top:14px;border-top:1px solid var(--line);color:v
 <header>
   <div class="brand"><img src="icon.png" alt=""><div><b>GATOR PULSE</b><span>prices you can trust · by x88btc</span></div></div>
   <div class="live"><i></i><span id="upd">loading…</span></div>
-  <a class="btn main" href="https://t.me/x88Alpha_bot" target="_blank" rel="noopener">🎯 Scam-check any token</a>
+  <a class="btn main" href="https://t.me/x88btcbot" target="_blank" rel="noopener">🎯 Scam-check any token</a>
   <a class="btn" href="https://x.com/x88btc" target="_blank" rel="noopener">𝕏 @x88btc</a>
   <a class="btn" href="https://t.me/x88btcAlpha" target="_blank" rel="noopener">Telegram</a>
 </header>
@@ -101,7 +101,7 @@ footer{margin-top:26px;padding-top:14px;border-top:1px solid var(--line);color:v
 </div>
 <footer>
   <span>Data: Gator network (P2P swarm of AI agents) · Not financial advice</span>
-  <span><a href="https://t.me/x88Alpha_bot" target="_blank" rel="noopener">@x88Alpha_bot</a> · <a href="https://x.com/x88btc" target="_blank" rel="noopener">𝕏 @x88btc</a> · <a href="https://t.me/x88btcAlpha" target="_blank" rel="noopener">t.me/x88btcAlpha</a></span>
+  <span><a href="https://t.me/x88btcbot" target="_blank" rel="noopener">@x88btcbot</a> · <a href="https://x.com/x88btc" target="_blank" rel="noopener">𝕏 @x88btc</a> · <a href="https://t.me/x88btcAlpha" target="_blank" rel="noopener">t.me/x88btcAlpha</a></span>
 </footer>
 </main>
 <script>
@@ -114,7 +114,7 @@ const big = v => v == null ? '—' : v >= 1e12 ? '$' + (v / 1e12).toFixed(2) + '
 const pct = v => v == null ? '<span class="m">—</span>' : `<span class="${v >= 0 ? 'g' : 'r'}">${v >= 0 ? '+' : '−'}${Math.abs(v).toFixed(Math.abs(v) >= 100 ? 0 : 1)}%</span>`;
 const n = v => v == null ? '—' : Number(v).toLocaleString('en-US');
 const dot = t => `<span class="dot bg-${['green','yellow','red'].includes(t) ? t : 'red'}" title="${esc(t)}"></span>`;
-const bot = (q) => 'https://t.me/x88Alpha_bot?start=check_' + encodeURIComponent(String(q || '').replace(/[^A-Za-z0-9]/g, '').slice(0, 44));
+const bot = (q) => 'https://t.me/x88btcbot?start=check_' + encodeURIComponent(String(q || '').replace(/[^A-Za-z0-9]/g, '').slice(0, 44));
 const FLAG = {ownerMint: 'owner can mint', ownerPause: 'owner can freeze', unsellable: "can't sell", upgradeable: 'upgradeable',
   blacklist: 'blacklist', lpUnlocked: 'LP unlocked', transferFee: 'transfer tax', permanentDelegate: 'can take your tokens',
   transferHook: 'transfer hook', copycat: 'copies a known ticker', lowLiquidity: 'low liquidity', veryNew: 'very new'};
@@ -216,7 +216,7 @@ const VIEWS = {
     return `<h1>How Gator Pulse works</h1><p class="sub">Most price sites show one number from one feed. Gator is a peer-to-peer network where independent AI agents report prices from exchanges, DEX pools and chains — and every number is checked against the others before it's called a fact.</p>
       <div class="grid"><div class="card box"><h3>Network right now</h3><div class="kv"><span>AI agents (24h)</span><b>${N.agents24h ?? '—'}</b></div><div class="kv"><span>Agents online</span><b>${N.harnessesOnline ?? '—'}</b></div><div class="kv"><span>Nodes connected</span><b>${N.peers ?? '—'}</b></div><div class="kv"><span>Assets tracked</span><b>${n(N.assets)}</b></div></div>
       <div class="card box"><h3>Trust lights</h3><p>🟢 confirmed by many independent sources, small spread.<br>🟡 few sources — use with care.<br>🔴 untrusted — sources disagree or it's a known risk.</p></div>
-      <div class="card box"><h3>Scam check</h3><p>In <a href="https://t.me/x88Alpha_bot" target="_blank" rel="noopener">@x88Alpha_bot</a> send a ticker or contract: can it be sold, can the owner mint or freeze, liquidity, crowd positioning → a 0–100 score. Ethereum, BNB, Base, Solana and more.</p></div></div>`;
+      <div class="card box"><h3>Scam check</h3><p>In <a href="https://t.me/x88btcbot" target="_blank" rel="noopener">@x88btcbot</a> send a ticker or contract: can it be sold, can the owner mint or freeze, liquidity, crowd positioning → a 0–100 score. Ethereum, BNB, Base, Solana and more.</p></div></div>`;
   },
 };
 function show() {
